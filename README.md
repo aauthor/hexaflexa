@@ -5,6 +5,8 @@ help, we might get there sooner!
 
 # Hexflex
 
+[![Build Status](https://travis-ci.org/aauthor/hexflex.svg?branch=master)](https://travis-ci.org/aauthor/hexflex)
+
 Hexflex is a Ruby gem and command-line tool for automatically generating
 [hexaflexagons].
 
