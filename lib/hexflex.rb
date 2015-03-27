@@ -3,6 +3,7 @@ require "active_support/core_ext"
 require "yaml"
 
 require "hexflex/builder"
+require "hexflex/side"
 require "hexflex/triangle"
 
 module Hexflex
