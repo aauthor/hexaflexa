@@ -5,10 +5,9 @@ require "yaml"
 require "hexflex/builder"
 require "hexflex/side"
 require "hexflex/triangle"
+require "hexflex/hexaflexagon"
 
 module Hexflex
-
-
   class << self
     def build(yaml_file)
       opts = YAML.load_file(yaml_file).deep_symbolize_keys
