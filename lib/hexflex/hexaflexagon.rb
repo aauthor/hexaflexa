@@ -4,7 +4,10 @@ module Hexflex
     attr_accessor :sides
 
     def initialize
-      @sides = Array.new(3, Side.new)
+      @sides = []
+      @sides << Side.new(face: :cyan)
+      @sides << Side.new(face: :yellow)
+      @sides << Side.new(face: :magenta)
     end
 
 

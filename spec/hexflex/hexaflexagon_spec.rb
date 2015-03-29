@@ -7,4 +7,13 @@ describe Hexflex::Hexaflexagon do
     expect(sided.sides.count).to eq 3
   end
 
+  context "created with no specified faces" do
+    it "creates sides with magenta, cyan, and yellow" do
+      hexaflexagon = Hexflex::Hexaflexagon.new
+      expect(hexaflexagon.sides.select{ |s| s.face == :magenta}.count).to eq 1
+      expect(hexaflexagon.sides.select{ |s| s.face == :cyan}.count).to eq 1
+      expect(hexaflexagon.sides.select{ |s| s.face == :yellow}.count).to eq 1
+    end
+  end
+
 end
