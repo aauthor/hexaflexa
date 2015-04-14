@@ -6,6 +6,7 @@ require "hexflex/builder"
 require "hexflex/side"
 require "hexflex/triangle"
 require "hexflex/hexaflexagon"
+require "hexflex/hexaflexaguru"
 
 module Hexflex
   class << self
