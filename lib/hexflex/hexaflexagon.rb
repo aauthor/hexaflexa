@@ -1,3 +1,5 @@
+require "hexflex/templater"
+
 module Hexflex
   class Hexaflexagon
 
@@ -5,11 +7,18 @@ module Hexflex
 
     def initialize
       @sides = []
-      @sides << Side.new(face: :cyan)
-      @sides << Side.new(face: :yellow)
-      @sides << Side.new(face: :magenta)
+      @sides << Side.new(face: "cyan")
+      @sides << Side.new(face: "yellow")
+      @sides << Side.new(face: "magenta")
     end
 
+    def as_template
+      Templater.new(self).make_template
+    end
+
+    def triangles
+      self.sides.map(&:triangles).flatten
+    end
 
   end
 end

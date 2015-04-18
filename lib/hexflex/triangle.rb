@@ -1,3 +1,5 @@
+require "hexflex/triangle_vector"
+
 module Hexflex
   class Triangle
     BASE = 1.0
@@ -12,5 +14,11 @@ module Hexflex
     def initialize(opts = {})
       @face = opts[:face]
     end
+
+    # turns the triangle into a group that can be used by RVG
+    def to_vector_group
+      TriangleVector.new(self).fill_group
+    end
+
   end
 end

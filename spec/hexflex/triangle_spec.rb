@@ -1,4 +1,5 @@
-require 'spec_helper'
+require "spec_helper"
+require "hexflex/triangle_vector"
 
 describe Hexflex::Triangle do
 
@@ -11,6 +12,23 @@ describe Hexflex::Triangle do
     triangle = Hexflex::Triangle.new
     triangle.face = :red
     expect(triangle.face).to eq :red
+  end
+
+  describe "#to_vector_group" do
+    let(:triangle) { Hexflex::Triangle.new }
+    it "returns an rvg vector group" do
+      expect(triangle.to_vector_group).to be_a Magick::RVG::Group
+    end
+
+    it "uses TriangleVector to create group" do
+      triangle_vector = double("triangle_vector")
+      group = double("group")
+      expect(Hexflex::TriangleVector).to receive(:new)
+        .with(triangle)
+        .and_return(triangle_vector)
+      expect(triangle_vector).to receive(:fill_group).and_return(group)
+      expect(triangle.to_vector_group).to eq group
+    end
   end
 
 end

@@ -1,4 +1,5 @@
 module Hexflex
+  # TODO rename triangle_template
   # takes a hexaflexagon and generates an order of triangles to be renders in an
   # unfolded hexaflexagon
   class Hexaflexaguru
