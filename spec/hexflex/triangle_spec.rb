@@ -1,5 +1,5 @@
 require "spec_helper"
-require "hexflex/triangle_vector"
+require "hexflex/triangle"
 
 describe Hexflex::Triangle do
 

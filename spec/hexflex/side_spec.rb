@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'hexflex/side'
 
 describe Hexflex::Side do
 

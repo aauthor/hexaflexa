@@ -3,11 +3,7 @@ require "active_support/core_ext"
 require "yaml"
 require "rvg/rvg"
 
-require "hexflex/builder"
-require "hexflex/side"
-require "hexflex/triangle"
 require "hexflex/hexaflexagon"
-require "hexflex/hexaflexaguru"
 
 module Hexflex
 

@@ -1,3 +1,4 @@
+require "hexflex/side"
 require "hexflex/templater"
 
 module Hexflex
