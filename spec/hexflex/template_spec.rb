@@ -26,9 +26,30 @@ describe Hexflex::Template do
     end
 
     it "translates the triangle to a viewable region" do
-      allow(canvas).to receive(:use).with(triangle_vector).and_return(use)
       expect(use).to receive(:translate).with(Hexflex::X, Hexflex::Y)
       subject.place_triangle(triangle, 0)
+    end
+
+    it "translates the second triangle over a radius length" do
+      expect(use).to receive(:translate)
+      expect(use).to receive(:translate).with(Hexflex::R, 0)
+      subject.place_triangle(triangle, 1)
+    end
+
+    it "translates subsequent triangles over a multiple of radius length" do
+      expect(use).to receive(:translate)
+      expect(use).to receive(:translate).with(2*Hexflex::R, 0)
+      subject.place_triangle(triangle, 2)
+    end
+
+    it "rotates odd triangle 60 degrees" do
+      expect(use).to receive(:rotate).with(60)
+      subject.place_triangle(triangle,1)
+    end
+
+    it "does not rotate even triangles 60 degrees" do
+      expect(use).to_not receive(:rotate).with(60)
+      subject.place_triangle(triangle,2)
     end
   end
 

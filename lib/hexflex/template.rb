@@ -8,7 +8,14 @@ module Hexflex
     end
 
     def place_triangle(triangle, index)
-      canvas.use(triangle.to_vector_group).translate(Hexflex::X,Hexflex::Y)
+      triangle_use = canvas.use(triangle.to_vector_group)
+        .translate(Hexflex::X,Hexflex::Y)
+      if(index > 0)
+        triangle_use.translate(index * Hexflex::R, 0)
+      end
+      if(index.odd?)
+        triangle_use.rotate(60)
+      end
     end
 
     def save
