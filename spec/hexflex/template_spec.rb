@@ -6,24 +6,28 @@ describe Hexflex::Template do
   it "has a viewboxed canvas" do
     expect(Magick::RVG).to receive(:new).with(3.in, 3.in).and_return(canvas)
     expect(canvas).to receive(:viewbox).and_return(canvas)
+    allow(canvas).to receive(:background_fill=)
     expect(subject.canvas).to be canvas
   end
 
   describe "#place_triangle" do
     let(:triangle) { double("triangle") }
     let(:triangle_vector) { double(:triangle_vector) }
+    let(:use) { double(:use).as_null_object }
     before do
       subject.canvas = canvas
-      allow(canvas).to receive(:use)
       expect(triangle).to receive(:to_vector_group).and_return(triangle_vector)
-    end
-
-    it "takes a triangle and an index" do
-      expect{subject.place_triangle(triangle, 0)}.to_not raise_error
+      allow(canvas).to receive(:use).with(triangle_vector).and_return(use)
     end
 
     it "puts the triangle on the canvas" do
       expect(canvas).to receive(:use).with(triangle_vector)
+      subject.place_triangle(triangle, 0)
+    end
+
+    it "translates the triangle to a viewable region" do
+      allow(canvas).to receive(:use).with(triangle_vector).and_return(use)
+      expect(use).to receive(:translate).with(Hexflex::X, Hexflex::Y)
       subject.place_triangle(triangle, 0)
     end
   end
