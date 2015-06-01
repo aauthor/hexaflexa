@@ -13,14 +13,13 @@ module Hexflex
 
     def initialize(hexaflexagon)
       self.hexaflexagon = hexaflexagon
-      @side_triangles = hexaflexagon.sides.map(&:triangles)
-      @pattern = [2,0,0,1,1,2]
     end
 
     def template_order
+      side_triangles = hexaflexagon.sides.map { |side| side.triangles.dup }
       Array.new.tap do |template_order|
         SIDE_PATTERN.cycle(3) do |side_index|
-          template_order << @side_triangles[side_index].shift
+          template_order << side_triangles[side_index].shift
         end
       end
     end
