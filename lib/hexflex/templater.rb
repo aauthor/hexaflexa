@@ -9,10 +9,11 @@ module Hexflex
     end
 
     def make_template
-      template = Hexflex::Template.new
-      triangle = hexaflexagon.triangles.first
-      template.place_triangle(triangle, 0)
-      template
+      Hexflex::Template.new.tap do |template|
+        hexaflexagon.triangles.each_with_index do |triangle, index|
+          template.place_triangle(triangle, index)
+        end
+      end
     end
   end
 end

@@ -11,13 +11,15 @@ describe Hexflex::Templater do
   end
 
   describe "#make_template" do
-    it "returns a template with ONE OF THE hexaflexagon's triangles placed therein" do
+    it "returns a template with the hexaflexagon's triangles placed therein" do
       hexaflexagon = Hexflex::Hexaflexagon.new
       templater = Hexflex::Templater.new(hexaflexagon)
 
       template = double("template")
       expect(Hexflex::Template).to receive(:new).and_return(template)
-      expect(template).to receive(:place_triangle).with(Hexflex::Triangle, 0)
+      hexaflexagon.triangles.each_with_index do |triangle, index|
+        expect(template).to receive(:place_triangle).with(triangle, index)
+      end
 
       expect(templater.make_template).to eq template
     end
