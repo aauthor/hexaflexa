@@ -11,6 +11,10 @@ require "hexflex/hexaflexaguru"
 
 module Hexflex
 
+  R = 1.0
+  X = Math::sqrt(3) / 2.0
+  Y = 0.5
+
   Magick::RVG::dpi = 72
 
   class << self

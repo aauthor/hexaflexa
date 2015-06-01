@@ -11,7 +11,7 @@ module Hexflex
 
     def fill_group
       @group.tap do |group|
-        group.polygon(0,1, Math::sqrt(3)/2, -1.0/2, -Math::sqrt(3)/2, -1.0/2).
+        group.polygon(0,R, X,-Y, -X,-Y).
           styles(fill: triangle.face)
       end
     end
