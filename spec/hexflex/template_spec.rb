@@ -3,11 +3,15 @@ require "hexflex/template"
 
 describe Hexflex::Template do
   let(:canvas) { double("canvas") }
-  it "has a viewboxed canvas" do
-    expect(Magick::RVG).to receive(:new).with(3.in, 3.in).and_return(canvas)
-    expect(canvas).to receive(:viewbox).and_return(canvas)
-    allow(canvas).to receive(:background_fill=)
-    expect(subject.canvas).to be canvas
+  describe ".new" do
+    before do
+      allow(Magick::RVG).to receive(:new).and_return(canvas)
+      allow(canvas).to receive(:viewbox).and_return(canvas)
+      allow(canvas).to receive(:background_fill=)
+    end
+    it "it has a canvas" do
+      expect(subject.canvas).to be canvas
+    end
   end
 
   describe "#place_triangle" do
