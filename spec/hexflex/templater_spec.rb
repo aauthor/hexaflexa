@@ -11,13 +11,23 @@ describe Hexflex::Templater do
   end
 
   describe "#make_template" do
-    it "returns a template with the hexaflexagon's triangles placed therein" do
-      hexaflexagon = Hexflex::Hexaflexagon.new
+    let(:hexaflexagon) { Hexflex::Hexaflexagon.new }
+    let(:orderer) { instance_double(Hexflex::TriangleOrderer) }
+    let(:template_triangles) do
+      Array.new(18) { |index| double("triangle_#{index}") }
+    end
+    before do
+      expect(Hexflex::TriangleOrderer).to receive(:new)
+        .with(hexaflexagon)
+        .and_return(orderer)
+      expect(orderer).to receive(:template_order).and_return(template_triangles);
+    end
+    it "returns a template with all the hexaflexagon's triangles placed therein" do
       templater = Hexflex::Templater.new(hexaflexagon)
 
       template = double("template")
       expect(Hexflex::Template).to receive(:new).and_return(template)
-      hexaflexagon.triangles.each_with_index do |triangle, index|
+      template_triangles.each_with_index do |triangle, index|
         expect(template).to receive(:place_triangle).with(triangle, index)
       end
 

@@ -1,4 +1,5 @@
 require "hexflex/template"
+require "hexflex/triangle_orderer"
 
 module Hexflex
   class Templater
@@ -10,10 +11,12 @@ module Hexflex
 
     def make_template
       Hexflex::Template.new.tap do |template|
-        hexaflexagon.triangles.each_with_index do |triangle, index|
+        triangles = Hexflex::TriangleOrderer.new(hexaflexagon).template_order
+        triangles.each_with_index do |triangle, index|
           template.place_triangle(triangle, index)
         end
       end
     end
+
   end
 end
