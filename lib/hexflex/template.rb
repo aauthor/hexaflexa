@@ -3,7 +3,7 @@ module Hexflex
     attr_accessor :canvas
 
     def initialize
-      self.canvas = Magick::RVG.new(3.in, 3.in).viewbox(0,0,4,4)
+      self.canvas = Magick::RVG.new(3.in, 3.in).viewbox(0,0,15,4)
       self.canvas.background_fill = "white"
     end
 
@@ -14,6 +14,7 @@ module Hexflex
         triangle_use.translate(index * Hexflex::R, 0)
       end
       if(index.odd?)
+        triangle_use.translate(0, Hexflex::Y)
         triangle_use.rotate(60)
       end
     end

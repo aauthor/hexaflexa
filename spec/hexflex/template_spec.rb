@@ -46,10 +46,20 @@ describe Hexflex::Template do
       subject.place_triangle(triangle, 2)
     end
 
-    it "rotates odd triangle 60 degrees" do
-      expect(use).to receive(:rotate).with(60)
-      subject.place_triangle(triangle,1)
+    context "odd placement" do
+      let(:index) { (1..18).step(2).to_a.sample }
+
+      it "rotates triangles 60 degrees" do
+        expect(use).to receive(:rotate).with(60)
+        subject.place_triangle(triangle, index)
+      end
+
+      it "move the triangle down to be in line with the others" do
+        expect(use).to receive(:translate).with(0, Hexflex::Y)
+        subject.place_triangle(triangle, index)
+      end
     end
+
 
     it "does not rotate even triangles 60 degrees" do
       expect(use).to_not receive(:rotate).with(60)
