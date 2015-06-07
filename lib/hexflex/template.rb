@@ -1,3 +1,5 @@
+require "hexflex/triangle_placer"
+
 module Hexflex
   class Template
     attr_accessor :canvas
@@ -9,12 +11,7 @@ module Hexflex
 
     def place_triangle(triangle, index)
       triangle_use = canvas.use(triangle.to_vector_group)
-        .translate(Hexflex::X,Hexflex::Y)
-      triangle_use.translate(index * Hexflex::R, 0)
-      if(index.odd?)
-        triangle_use.translate(0, Hexflex::Y)
-        triangle_use.rotate(60)
-      end
+      Hexflex::TrianglePlacer.new(triangle_use, index).place!
     end
 
     def save
