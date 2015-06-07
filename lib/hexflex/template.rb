@@ -10,9 +10,7 @@ module Hexflex
     def place_triangle(triangle, index)
       triangle_use = canvas.use(triangle.to_vector_group)
         .translate(Hexflex::X,Hexflex::Y)
-      if(index > 0)
-        triangle_use.translate(index * Hexflex::R, 0)
-      end
+      triangle_use.translate(index * Hexflex::R, 0)
       if(index.odd?)
         triangle_use.translate(0, Hexflex::Y)
         triangle_use.rotate(60)
