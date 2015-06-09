@@ -18,5 +18,11 @@ module Hexflex
       TriangleVector.new(self).fill_group
     end
 
+    class << self
+      def place_holder
+        new(face: :grey)
+      end
+    end
+
   end
 end

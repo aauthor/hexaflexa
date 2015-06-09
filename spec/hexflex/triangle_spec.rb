@@ -31,4 +31,11 @@ describe Hexflex::Triangle do
     end
   end
 
+  describe ".place_holder" do
+    it "returns a triangle with a grey background" do
+      template = Hexflex::Triangle.place_holder
+      expect(template.face).to eq :grey
+    end
+  end
+
 end
