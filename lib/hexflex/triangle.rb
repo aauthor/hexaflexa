@@ -20,7 +20,7 @@ module Hexflex
 
     class << self
       def place_holder
-        new(face: :grey)
+        new(face: "grey")
       end
     end
 

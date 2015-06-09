@@ -5,7 +5,10 @@ describe Hexflex::TemplateOrderer do
 
   describe "#template_order" do
     let(:hexaflexagon) { Hexflex::Hexaflexagon.new }
-    it "returns an array of triangles in template order" do
+    it "returns an array of triangles in template order with placeholders" do
+      place_holders = Array.new(2) { Hexflex::Triangle.place_holder }
+      allow(Hexflex::Triangle).to receive(:place_holder).
+        and_return( place_holders[0], place_holders[1])
       triangles = hexaflexagon.sides.map { |s| s.triangles.dup }
       ordered = Hexflex::TemplateOrderer.new(hexaflexagon).triangles
       expect(ordered).to eq [
@@ -14,11 +17,12 @@ describe Hexflex::TemplateOrderer do
         triangles[1].shift, triangles[1].shift,
         triangles[2].shift, triangles[2].shift,
         triangles[0].shift, triangles[0].shift,
-        triangles[1].shift, triangles[1].shift,
+        triangles[1].shift, place_holders[0], triangles[1].shift,
         triangles[2].shift, triangles[2].shift,
         triangles[0].shift, triangles[0].shift,
         triangles[1].shift, triangles[1].shift,
-        triangles[2].shift
+        triangles[2].shift,
+        place_holders[1]
       ]
     end
 
@@ -32,18 +36,3 @@ describe Hexflex::TemplateOrderer do
   end
 
 end
-
-# Generalization?
-#
-# 3 + (i % 2) + 6 * floor(i/2)
-#
-# [3,4,9,10,15,16]
-#
-# 1 + (i % 2) + 6 * floor(i/2)
-# 6 * floor( (i+2)/2 ) - (5 - ( i % 2 ))
-# [1,2,7,8,13,14]
-#
-# 5 + (i % 2) + 6 * floor(i/2)
-# 6 * floor( (i+1)/2 ) - (i % 2)
-#
-# [0,5,6,11,12,17]

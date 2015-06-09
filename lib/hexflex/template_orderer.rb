@@ -11,11 +11,12 @@ module Hexflex
 
     def triangles
       side_triangles = hexaflexagon.sides.map { |side| side.triangles.dup }
-      Array.new.tap do |template_order|
-        SIDE_PATTERN.cycle(3) do |side_index|
-          template_order << side_triangles[side_index].shift
-        end
+      template_order = Array.new
+      SIDE_PATTERN.cycle(3) do |side_index|
+        template_order << side_triangles[side_index].shift
       end
+      template_order.insert(10, Triangle.place_holder)
+      template_order << Triangle.place_holder
     end
 
   end
