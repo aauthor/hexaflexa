@@ -10,10 +10,8 @@ module Hexflex
       triangle_use.translate(*origin_shift)
       triangle_use.translate(*lateral_placement)
       triangle_use.translate(*vertical_placement)
-      if(index.odd?)
-        triangle_use.translate(*pre_odd_rotation_vertical_adjustment)
-        triangle_use.rotate(*odd_rotation)
-      end
+      triangle_use.translate(*pre_rotation_vertical_adjustment)
+      triangle_use.rotate(*rotation)
     end
 
     private
@@ -30,12 +28,28 @@ module Hexflex
       [0, (index/10) * (Hexflex::Y + Hexflex::R)]
     end
 
-    def odd_rotation
-      60
+    def rotation
+      if rotate?
+        60
+      else
+        0
+      end
     end
 
-    def pre_odd_rotation_vertical_adjustment
-      [0, Hexflex::Y]
+    def pre_rotation_vertical_adjustment
+      if rotate?
+        [0, Hexflex::Y]
+      else
+        [0, 0]
+      end
+    end
+
+    def rotate?
+      if index < 10
+        index.odd?
+      else
+        index.even?
+      end
     end
 
   end

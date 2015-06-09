@@ -13,31 +13,10 @@ describe Hexflex::TrianglePlacer do
       allow(triangle_use).to receive(:translate)
       allow(triangle_use).to receive(:rotate)
     end
+
     it "translates the triangle to a viewable region" do
       expect(triangle_use).to receive(:translate).with(Hexflex::X, Hexflex::Y)
       subject.place!
-    end
-
-    context "odd placement" do
-      let(:indexes) { (1..19).step(2) }
-
-      it "rotates triangles 60 degrees" do
-        expect(triangle_use).to receive(:rotate).with(60)
-        subject.place!
-      end
-
-      it "move the triangle down to be in line with the others" do
-        expect(triangle_use).to receive(:translate).with(0, Hexflex::Y)
-        subject.place!
-      end
-    end
-
-    context "event placements" do
-      let(:indexes) { (2..18).step(2) }
-      it "does not rotate triangles" do
-        expect(triangle_use).to_not receive(:rotate).with(60)
-        subject.place!
-      end
     end
 
     context "placements 0 to 9" do
@@ -51,6 +30,24 @@ describe Hexflex::TrianglePlacer do
         expect(triangle_use).to_not receive(:translate).with(0, Hexflex::Y + Hexflex::R)
         subject.place!
       end
+      context "even" do
+        let(:indexes) { (0..8).step(2) }
+        it "does not rotate the triangle" do
+          expect(triangle_use).to_not receive(:rotate).with(60)
+          subject.place!
+        end
+      end
+      context "odd" do
+        let(:indexes) { (1..9).step(2) }
+        it "rotates the triangle" do
+          expect(triangle_use).to receive(:rotate).with(60)
+          subject.place!
+        end
+        it "move the triangle down to be in line with the others" do
+          expect(triangle_use).to receive(:translate).with(0, Hexflex::Y)
+          subject.place!
+        end
+      end
     end
 
     context "placements 10..19" do
@@ -63,6 +60,24 @@ describe Hexflex::TrianglePlacer do
       it "places the triangle a triangle height below" do
         expect(triangle_use).to receive(:translate).with(0, Hexflex::Y + Hexflex::R)
         subject.place!
+      end
+      context "odd" do
+        let(:indexes) { (1..9).step(2) }
+        it "does rotates the triangle" do
+          expect(triangle_use).to receive(:rotate).with(60)
+          subject.place!
+        end
+        it "move the triangle down to be in line with the others" do
+          expect(triangle_use).to receive(:translate).with(0, Hexflex::Y)
+          subject.place!
+        end
+      end
+      context "even" do
+        let(:indexes) { (0..8).step(2) }
+        it "rotates the triangle" do
+          expect(triangle_use).to_not receive(:rotate).with(60)
+          subject.place!
+        end
       end
     end
   end
