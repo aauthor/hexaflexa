@@ -1,21 +1,15 @@
 module Hexflex
-  class TriangleOrderer
-
-    attr_accessor :hexaflexagon
-
-    # MAP = [
-    #   [1,2,7,8,13,14],
-    #   [3,4,9,10,15,16],
-    #   [0,5,6,11,12,17]
-    # ]
+  class TemplateOrderer
 
     SIDE_PATTERN = [2,0,0,1,1,2]
 
+    attr_reader :hexaflexagon
+
     def initialize(hexaflexagon)
-      self.hexaflexagon = hexaflexagon
+      @hexaflexagon = hexaflexagon
     end
 
-    def template_order
+    def triangles
       side_triangles = hexaflexagon.sides.map { |side| side.triangles.dup }
       Array.new.tap do |template_order|
         SIDE_PATTERN.cycle(3) do |side_index|

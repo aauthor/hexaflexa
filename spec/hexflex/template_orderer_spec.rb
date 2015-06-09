@@ -1,12 +1,13 @@
 require "spec_helper"
-require "hexflex/triangle_orderer"
-describe Hexflex::TriangleOrderer do
+require "hexflex/template_orderer"
+
+describe Hexflex::TemplateOrderer do
 
   describe "#template_order" do
     let(:hexaflexagon) { Hexflex::Hexaflexagon.new }
     it "returns an array of triangles in template order" do
       triangles = hexaflexagon.sides.map { |s| s.triangles.dup }
-      ordered = Hexflex::TriangleOrderer.new(hexaflexagon).template_order
+      ordered = Hexflex::TemplateOrderer.new(hexaflexagon).triangles
       expect(ordered).to eq [
         triangles[2].shift,
         triangles[0].shift, triangles[0].shift,
@@ -23,7 +24,7 @@ describe Hexflex::TriangleOrderer do
 
     it "does not mutate the original list of triangles" do
       pre_triangles = hexaflexagon.sides.map { |s| s.triangles.dup }
-      Hexflex::TriangleOrderer.new(hexaflexagon).template_order
+      Hexflex::TemplateOrderer.new(hexaflexagon).triangles
       post_triangles = hexaflexagon.sides.map { |s| s.triangles.dup }
       expect(pre_triangles).to eq post_triangles
     end

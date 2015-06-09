@@ -12,15 +12,15 @@ describe Hexflex::Templater do
 
   describe "#make_template" do
     let(:hexaflexagon) { Hexflex::Hexaflexagon.new }
-    let(:orderer) { instance_double(Hexflex::TriangleOrderer) }
+    let(:orderer) { instance_double(Hexflex::TemplateOrderer) }
     let(:template_triangles) do
       Array.new(18) { |index| double("triangle_#{index}") }
     end
     before do
-      expect(Hexflex::TriangleOrderer).to receive(:new)
+      expect(Hexflex::TemplateOrderer).to receive(:new)
         .with(hexaflexagon)
         .and_return(orderer)
-      expect(orderer).to receive(:template_order).and_return(template_triangles);
+      expect(orderer).to receive(:triangles).and_return(template_triangles);
     end
     it "returns a template with all the hexaflexagon's triangles placed therein" do
       templater = Hexflex::Templater.new(hexaflexagon)
