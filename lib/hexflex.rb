@@ -7,9 +7,11 @@ require "hexflex/hexaflexagon"
 
 module Hexflex
 
-  R = 1.0
-  X = Math::sqrt(3) / 2.0
-  Y = 0.5
+  RADIUS = 1.0
+  BASE = Math::sqrt(3)
+  HEIGHT = 1.5
+  HEIGHT_AFTER_RADIUS = HEIGHT - RADIUS
+  HALF_BASE = BASE / 2
 
   Magick::RVG::dpi = 72
 

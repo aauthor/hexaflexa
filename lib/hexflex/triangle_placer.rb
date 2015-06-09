@@ -1,6 +1,7 @@
 module Hexflex
   class TrianglePlacer
     attr_reader :triangle_use, :index
+
     def initialize(triangle_use, index)
       @triangle_use = triangle_use
       @index = index.to_i
@@ -17,15 +18,15 @@ module Hexflex
     private
 
     def origin_shift
-      [Hexflex::X, Hexflex::Y]
+      [HALF_BASE, HEIGHT_AFTER_RADIUS]
     end
 
     def lateral_placement
-      [(Hexflex::R * index) % (Hexflex::R * 10) , 0]
+      [(RADIUS * index) % (RADIUS * 10) , 0]
     end
 
     def vertical_placement
-      [0, (index/10) * (Hexflex::Y + Hexflex::R)]
+      [0, (index/10) * (HEIGHT)]
     end
 
     def rotation
@@ -38,7 +39,7 @@ module Hexflex
 
     def pre_rotation_vertical_adjustment
       if rotate?
-        [0, Hexflex::Y]
+        [0, HEIGHT_AFTER_RADIUS]
       else
         [0, 0]
       end

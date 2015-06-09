@@ -7,13 +7,19 @@ describe Hexflex do
       expect(Magick::RVG::dpi).to eq (72)
     end
     it "sets the radius" do
-      expect(Hexflex::R).to eq 1
+      expect(Hexflex::RADIUS).to eq 1
     end
-    it "sets the x offset for half of a triangle" do
-      expect(Hexflex::X).to eq(Math::sqrt(3)/2)
+    it "set the base of a triangle" do
+      expect(Hexflex::BASE).to eq Math::sqrt(3)
     end
-    it "sets the y offset below the center of mass of the triangle" do
-      expect(Hexflex::Y).to eq(1.0/2.0)
+    it "sets half the base of a triangle" do
+      expect(Hexflex::HALF_BASE).to eq(Math::sqrt(3)/2)
+    end
+    it "sets the height of the triangle" do
+      expect(Hexflex::HEIGHT).to eq(1.5)
+    end
+    it "sets the height of the triangle minus the radius" do
+      expect(Hexflex::HEIGHT_AFTER_RADIUS).to eq(Hexflex::HEIGHT - Hexflex::RADIUS)
     end
   end
 
