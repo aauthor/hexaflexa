@@ -58,17 +58,19 @@ describe Hexflex::TrianglePlacer do
         subject.place!
       end
       it "places the triangle a triangle height below" do
-        expect(triangle_use).to receive(:translate).with(0, Hexflex::HEIGHT_AFTER_RADIUS + Hexflex::RADIUS)
+        expect(triangle_use).to receive(:translate)
+          .with(0, float_close_to(Hexflex::HEIGHT_AFTER_RADIUS + Hexflex::RADIUS))
         subject.place!
       end
       context "odd" do
-        let(:indexes) { (1..9).step(2) }
-        it "does rotates the triangle" do
-          expect(triangle_use).to receive(:rotate).with(60)
+        let(:indexes) { (11..19).step(2) }
+        it "does not rotate the triangle" do
+          expect(triangle_use).to receive(:rotate).with(0)
           subject.place!
         end
-        it "move the triangle down to be in line with the others" do
-          expect(triangle_use).to receive(:translate).with(0, Hexflex::HEIGHT_AFTER_RADIUS)
+        it "does not move the triangle down to be in line with the others" do
+          expect(triangle_use).to_not receive(:translate)
+            .with(0, float_close_to(Hexflex::HEIGHT_AFTER_RADIUS))
           subject.place!
         end
       end

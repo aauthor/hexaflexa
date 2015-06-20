@@ -92,3 +92,10 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
+
+RSpec::Matchers.define(:float_close_to) do |expected|
+  delta = 1e-10
+  match do |actual|
+    (expected - actual).abs < delta
+  end
+end
