@@ -12,6 +12,12 @@ describe Hexflex::Template do
     it "it has a canvas" do
       expect(subject.canvas).to be canvas
     end
+    it "creates a viewbox minimally needed to place the whole template" do
+      domain = Hexflex::BASE * 5 + Hexflex::HALF_BASE
+      range = Hexflex::HEIGHT * 2
+      expect(canvas).to receive(:viewbox).with(0, 0, domain, range)
+      Hexflex::Template.new
+    end
   end
 
   describe "#place_triangle" do

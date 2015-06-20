@@ -5,7 +5,10 @@ module Hexflex
     attr_accessor :canvas
 
     def initialize
-      self.canvas = Magick::RVG.new(3.in, 3.in).viewbox(0,0,15,4)
+      viewbox_width = Hexflex::HALF_BASE * 11
+      viewbox_height = Hexflex::HEIGHT * 2
+      self.canvas = Magick::RVG.new(10.in, 4.in).
+        viewbox(0, 0, viewbox_width, viewbox_height)
       self.canvas.background_fill = "white"
     end
 

@@ -22,7 +22,7 @@ module Hexflex
     end
 
     def lateral_placement
-      [(RADIUS * index) % (RADIUS * 10) , 0]
+      [(HALF_BASE * index) % (HALF_BASE * 10) , 0]
     end
 
     def vertical_placement

@@ -23,7 +23,7 @@ describe Hexflex::TrianglePlacer do
       let(:indexes) { (0..9) }
       it "translates the triangle latterally base off of the index" do
         expect(triangle_use).to receive(:translate)
-        expect(triangle_use).to receive(:translate).with(Hexflex::RADIUS * index, 0)
+        expect(triangle_use).to receive(:translate).with(Hexflex::HALF_BASE * index, 0)
         subject.place!
       end
       it "does not place the triangle an extra triangle height below" do
@@ -54,7 +54,7 @@ describe Hexflex::TrianglePlacer do
       let(:indexes) { (10..19) }
       it "resets the lateral placement from the begining" do
         expect(triangle_use).to receive(:translate)
-          .with(Hexflex::RADIUS * (index - 10), 0)
+          .with(float_close_to(Hexflex::HALF_BASE * (index - 10)), 0)
         subject.place!
       end
       it "places the triangle a triangle height below" do
