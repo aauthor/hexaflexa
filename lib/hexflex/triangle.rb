@@ -1,4 +1,4 @@
-require "hexflex/triangle_vector"
+require "hexflex/triangle_vector_assembler"
 
 module Hexflex
   class Triangle
@@ -14,8 +14,8 @@ module Hexflex
     end
 
     # turns the triangle into a group that can be used by RVG
-    def to_vector_group
-      TriangleVector.new(self).fill_group
+    def vector
+      TriangleVectorAssembler.new(self).assemble!
     end
 
     class << self

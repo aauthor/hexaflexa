@@ -14,7 +14,7 @@ describe Hexflex::Side do
     expect(side.face).to eq :red
   end
 
-  it "can be initialized to a face" do
+  it "can be initialized with a face" do
     side = Hexflex::Side.new(face: :red)
     expect(side.face).to eq :red
   end

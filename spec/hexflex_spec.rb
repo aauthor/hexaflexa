@@ -3,9 +3,6 @@ require "hexflex"
 
 describe Hexflex do
   describe "constants setup" do
-    it "sets the global dpi" do
-      expect(Magick::RVG::dpi).to eq (72)
-    end
     it "sets the radius" do
       expect(Hexflex::RADIUS).to eq 1
     end

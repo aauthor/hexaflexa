@@ -1,24 +1,27 @@
+require "rvg/rvg"
 require "hexflex/triangle_placer"
+
 
 module Hexflex
   class Template
-    attr_accessor :canvas
+
+    ::Magick::RVG::dpi = 72
+
+    attr_accessor :vector_graphic
 
     def initialize
-      viewbox_width = Hexflex::HALF_BASE * 11
-      viewbox_height = Hexflex::HEIGHT * 2
-      self.canvas = Magick::RVG.new(10.in, 4.in).
-        viewbox(0, 0, viewbox_width, viewbox_height)
-      self.canvas.background_fill = "white"
+      width = 10.in
+      height = width * Math::sqrt(3)/5.5
+      self.vector_graphic = Magick::RVG.new(width, height)
+      self.vector_graphic.background_fill = "white"
     end
 
     def place_triangle(triangle, index)
-      triangle_use = canvas.use(triangle.to_vector_group)
-      Hexflex::TrianglePlacer.new(triangle_use, index).place!
+      Hexflex::TrianglePlacer.new(self.vector_graphic, triangle.vector, index).place!
     end
 
     def save
-      drawing = canvas.draw
+      drawing = vector_graphic.draw
       drawing.write("out.gif")
     end
 

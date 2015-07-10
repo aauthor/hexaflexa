@@ -1,18 +1,19 @@
 module Hexflex
   class TrianglePlacer
-    attr_reader :triangle_use, :index
+    attr_reader :canvas, :triangle_vector, :index
 
-    def initialize(triangle_use, index)
-      @triangle_use = triangle_use
+    def initialize(canvas, triangle_vector, index)
+      @canvas = canvas.viewbox(0, 0, 5.5*BASE, 2*HEIGHT)
+      @triangle_vector = canvas.use(triangle_vector)
       @index = index.to_i
     end
 
     def place!
-      triangle_use.translate(*origin_shift)
-      triangle_use.translate(*lateral_placement)
-      triangle_use.translate(*vertical_placement)
-      triangle_use.translate(*pre_rotation_vertical_adjustment)
-      triangle_use.rotate(*rotation)
+      triangle_vector.translate(*origin_shift)
+      triangle_vector.translate(*lateral_placement)
+      triangle_vector.translate(*vertical_placement)
+      triangle_vector.translate(*pre_rotation_vertical_adjustment)
+      triangle_vector.rotate(*rotation)
     end
 
     private

@@ -2,57 +2,51 @@ require "spec_helper"
 require "hexflex/template"
 
 describe Hexflex::Template do
-  let(:canvas) { double("canvas") }
-  describe ".new" do
-    before do
-      allow(Magick::RVG).to receive(:new).and_return(canvas)
-      allow(canvas).to receive(:viewbox).and_return(canvas)
-      allow(canvas).to receive(:background_fill=)
+  describe "constant setup" do
+    it "sets the RVG dpi" do
+      expect(::Magick::RVG::dpi).to eq 72
     end
-    it "it has a canvas" do
-      expect(subject.canvas).to be canvas
+  end
+  describe "#new" do
+    it "initializes its public vector_graphic attribute" do
+      expect(subject.vector_graphic).to be_a Magick::RVG
     end
-    it "creates a viewbox minimally needed to place the whole template" do
-      domain = Hexflex::BASE * 5 + Hexflex::HALF_BASE
-      range = Hexflex::HEIGHT * 2
-      expect(canvas).to receive(:viewbox).with(0, 0, domain, range)
-      Hexflex::Template.new
+    it "initializes the width of the vector graphic to 10 inches" do
+      expect(subject.vector_graphic.width).to eq 10.in
+    end
+    it "initializes the vector graphic to have a 30.25:3 aspect ratio" do
+      height = subject.vector_graphic.height
+      width = subject.vector_graphic.width
+      aspect_ratio = width/height
+      expect(aspect_ratio).to be_within(1e-10).of(5.5/Math::sqrt(3))
+    end
+    it "sets its internal vector graphic background to white" do
+      expect(subject.vector_graphic.background_fill.to_color).to eq "white"
     end
   end
 
   describe "#place_triangle" do
-    let(:triangle) { double("triangle") }
-    let(:triangle_vector) { double(:triangle_vector) }
-    let(:use) { double(:use).as_null_object }
-    let(:index) { (0..19).to_a.sample }
-    before do
-      subject.canvas = canvas
-      expect(triangle).to receive(:to_vector_group).and_return(triangle_vector)
-      allow(canvas).to receive(:use).with(triangle_vector).and_return(use)
-    end
+    let(:triangle) { instance_double(Hexflex::Triangle) }
+    let(:triangle_vector) { double("triangle_vector") }
+    let(:index) { 18 }
+    let(:placer) { instance_double(Hexflex::TrianglePlacer) }
 
-    it "puts the triangle on the canvas" do
-      expect(canvas).to receive(:use).with(triangle_vector)
+    it "puts the triangle on the vector_graphic" do
+      allow(Hexflex::TrianglePlacer).to receive(:new)
+        .with(subject.vector_graphic, triangle_vector, index)
+        .and_return(placer)
+      allow(triangle).to receive(:vector).and_return(triangle_vector)
+      expect(placer).to receive(:place!)
       subject.place_triangle(triangle, index)
     end
-
-    it "it calls to place the triangle on the canvas" do
-      triangle_placer = instance_double(Hexflex::TrianglePlacer)
-      expect(Hexflex::TrianglePlacer).to receive(:new).
-        with(use , index).
-        and_return(triangle_placer)
-      expect(triangle_placer).to receive(:place!)
-      subject.place_triangle(triangle, index)
-    end
-
   end
 
   describe "#save" do
     it "writes the canvas to a file" do
-      canvas = double("canvas")
-      subject.canvas = canvas
+      vector_graphic = double("vector_graphic").as_null_object
+      expect(Magick::RVG).to receive(:new).and_return(vector_graphic)
       drawing = double("drawing")
-      expect(canvas).to receive(:draw).and_return(drawing)
+      expect(vector_graphic).to receive(:draw).and_return(drawing)
       expect(drawing).to receive(:write).with("out.gif")
       subject.save
     end
