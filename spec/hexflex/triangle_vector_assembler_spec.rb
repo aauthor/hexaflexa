@@ -4,7 +4,7 @@ require "hexflex/triangle"
 
 describe Hexflex::TriangleVectorAssembler do
 
-  let(:triangle) { Hexflex::Triangle.new }
+  let(:triangle) { Hexflex::Triangle.new(fill: :red) }
   subject { Hexflex::TriangleVectorAssembler.new(triangle) }
 
   describe ".new" do
@@ -23,7 +23,7 @@ describe Hexflex::TriangleVectorAssembler do
       expect(group).to receive(:polygon)
         .with( 0, 1,   Math::sqrt(3)/2, -1.0/2,   -Math::sqrt(3)/2,-1.0/2)
         .and_return(polygon)
-      expect(polygon).to receive(:styles).with(fill: triangle.face)
+      expect(polygon).to receive(:styles).with(fill: triangle.fill.to_s)
       subject.assemble!
     end
   end

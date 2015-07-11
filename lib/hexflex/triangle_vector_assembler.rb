@@ -12,7 +12,7 @@ module Hexflex
     def assemble!
       Magick::RVG::Group.new.tap do |group|
         group.polygon(0, RADIUS, HALF_BASE, -HEIGHT_AFTER_RADIUS, -HALF_BASE, -HEIGHT_AFTER_RADIUS)
-          .styles(fill: triangle.face)
+          .styles(fill: triangle.fill.to_s)
       end
     end
 

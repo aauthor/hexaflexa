@@ -8,21 +8,21 @@ describe Hexflex::Side do
     expect(subject.triangles).to all(be_a(Hexflex::Triangle))
   end
 
-  it "has a face" do
+  it "has a fill" do
     side = Hexflex::Side.new
-    side.face = :red
-    expect(side.face).to eq :red
+    side.fill = :red
+    expect(side.fill).to eq :red
   end
 
-  it "can be initialized with a face" do
-    side = Hexflex::Side.new(face: :red)
-    expect(side.face).to eq :red
+  it "can be initialized with a fill" do
+    side = Hexflex::Side.new(fill: :red)
+    expect(side.fill).to eq :red
   end
 
-  it "passes on a simple color face to its triangles" do
-    side = Hexflex::Side.new(face: :red)
+  it "passes on a simple color fill to its triangles" do
+    side = Hexflex::Side.new(fill: :red)
     side.triangles.each do |triangle|
-      expect(triangle.face).to eq :red
+      expect(triangle.fill).to eq :red
     end
   end
 

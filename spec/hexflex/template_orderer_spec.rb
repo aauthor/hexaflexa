@@ -4,7 +4,9 @@ require "hexflex/template_orderer"
 describe Hexflex::TemplateOrderer do
 
   describe "#template_order" do
-    let(:hexaflexagon) { Hexflex::Hexaflexagon.new }
+    let(:hexaflexagon) do
+      Hexflex::Hexaflexagon.new(side_fills: [:red, :white, :blue])
+    end
     it "returns an array of triangles in template order with placeholders" do
       place_holders = Array.new(2) { Hexflex::Triangle.place_holder }
       allow(Hexflex::Triangle).to receive(:place_holder).

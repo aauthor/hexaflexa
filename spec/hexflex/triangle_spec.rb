@@ -3,19 +3,19 @@ require "hexflex/triangle"
 
 describe Hexflex::Triangle do
 
-  it "can be initialized with a face" do
-    triangle = Hexflex::Triangle.new(face: :red)
-    expect(triangle.face).to eq :red
+  it "can be initialized with a fill" do
+    triangle = Hexflex::Triangle.new(fill: :red)
+    expect(triangle.fill).to eq :red
   end
 
-  it "can have a face" do
+  it "can have a fill" do
     triangle = Hexflex::Triangle.new
-    triangle.face = :red
-    expect(triangle.face).to eq :red
+    triangle.fill = :red
+    expect(triangle.fill).to eq :red
   end
 
   describe "#vector" do
-    subject { described_class.new(face: :red) }
+    subject { described_class.new(fill: :red) }
     it "returns an RVG group" do
       expect(subject.vector).to be_a Magick::RVG::Group
     end
@@ -41,7 +41,7 @@ describe Hexflex::Triangle do
   describe ".place_holder" do
     it "returns a triangle with a grey background" do
       template = Hexflex::Triangle.place_holder
-      expect(template.face).to eq "grey"
+      expect(template.fill).to eq "grey"
     end
   end
 

@@ -15,7 +15,7 @@ module Hexflex
   class << self
     def make_template_image(opts = {})
       output_file_name = opts.delete(:output_file_name)
-      template = Hexaflexagon.new().as_template
+      template = Hexaflexagon.new(opts).as_template
       template.save(output_file_name)
     end
   end

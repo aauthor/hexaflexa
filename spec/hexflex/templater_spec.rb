@@ -11,7 +11,9 @@ describe Hexflex::Templater do
   end
 
   describe "#make_template" do
-    let(:hexaflexagon) { Hexflex::Hexaflexagon.new }
+    let(:hexaflexagon) do
+      Hexflex::Hexaflexagon.new(side_fills: [:red, :white, :blue])
+    end
     let(:orderer) { instance_double(Hexflex::TemplateOrderer) }
     let(:template_triangles) do
       Array.new(18) { |index| double("triangle_#{index}") }

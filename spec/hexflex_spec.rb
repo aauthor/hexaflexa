@@ -24,11 +24,16 @@ describe Hexflex do
     let(:hexaflexagon) { double(:hexaflexagon) }
     let(:template) { double(:template) }
     let(:filename) { "lets_flex.png" }
+    let(:side_fills) { [:red, :white, :blue] }
     it "creates a and save a hexaflexagon template" do
-      expect(Hexflex::Hexaflexagon).to receive(:new).and_return(hexaflexagon)
+      expect(Hexflex::Hexaflexagon).to receive(:new)
+        .with(side_fills: side_fills).and_return(hexaflexagon)
       expect(hexaflexagon).to receive(:as_template).and_return(template)
       expect(template).to receive(:save).with(filename)
-      subject.make_template_image(output_file_name: filename)
+      subject.make_template_image(
+        output_file_name: filename,
+        side_fills: side_fills
+      )
     end
 
   end

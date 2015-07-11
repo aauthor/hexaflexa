@@ -1,18 +1,18 @@
 require "spec_helper"
 
 describe Hexflex::Hexaflexagon do
+  let(:side_fills) { [:red, :white, :blue] }
+  subject { described_class.new(side_fills: side_fills) }
 
-  it "has three sides" do
-    sided = Hexflex::Hexaflexagon.new
-    expect(sided.sides.count).to eq 3
-  end
+  describe '.new' do
+    it "has three sides" do
+      expect(subject.sides.count).to eq 3
+    end
 
-  context "created with no specified faces" do
     it "creates sides with magenta, cyan, and yellow" do
-      hexaflexagon = Hexflex::Hexaflexagon.new
-      expect(hexaflexagon.sides.select{ |s| s.face == "magenta"}.count).to eq 1
-      expect(hexaflexagon.sides.select{ |s| s.face == "cyan"}.count).to eq 1
-      expect(hexaflexagon.sides.select{ |s| s.face == "yellow"}.count).to eq 1
+      expect(subject.sides.select{ |s| s.fill == side_fills[0]}.count).to eq 1
+      expect(subject.sides.select{ |s| s.fill == side_fills[1]}.count).to eq 1
+      expect(subject.sides.select{ |s| s.fill == side_fills[2]}.count).to eq 1
     end
   end
 
