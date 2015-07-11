@@ -20,9 +20,9 @@ module Hexflex
       Hexflex::TrianglePlacer.new(self.vector_graphic, triangle.vector, index).place!
     end
 
-    def save
+    def save(filename)
       drawing = vector_graphic.draw
-      drawing.write("out.gif")
+      drawing.write(filename)
     end
 
   end

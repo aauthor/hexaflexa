@@ -35,6 +35,7 @@ Gemfile.lock
 
 # do not track generated output
 *.gif
+color_test.png
 
 # ide related files
 tags

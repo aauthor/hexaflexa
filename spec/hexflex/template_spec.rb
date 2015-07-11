@@ -43,12 +43,13 @@ describe Hexflex::Template do
 
   describe "#save" do
     it "writes the canvas to a file" do
+      filename = "my_hexflex.gif"
       vector_graphic = double("vector_graphic").as_null_object
       expect(Magick::RVG).to receive(:new).and_return(vector_graphic)
       drawing = double("drawing")
       expect(vector_graphic).to receive(:draw).and_return(drawing)
-      expect(drawing).to receive(:write).with("out.gif")
-      subject.save
+      expect(drawing).to receive(:write).with(filename)
+      subject.save(filename)
     end
   end
 end

@@ -4,9 +4,9 @@ require "hexflex"
 
 RSpec::Core::RakeTask.new(:spec)
 
-task :default => [:spec, :flex]
+task :default => [:spec, :color_smoketest]
 
-task :flex do
-  puts "Let's flex, shall we?"
-  Hexflex.make_template_image
+task :color_smoketest do
+  Hexflex.make_template_image(output_file_name: "color_test.png")
+  puts "Color test output to color_test.png."
 end
