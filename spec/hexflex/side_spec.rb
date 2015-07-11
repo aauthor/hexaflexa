@@ -19,11 +19,17 @@ describe Hexflex::Side do
     expect(side.fill).to eq :red
   end
 
-  it "passes on a simple color fill to its triangles" do
+  it "passes on a fill to its triangles" do
     side = Hexflex::Side.new(fill: :red)
     side.triangles.each do |triangle|
       expect(triangle.fill).to eq :red
     end
+  end
+
+  it "passes on the index to its triangles" do
+    index = 4
+    side = Hexflex::Side.new(fill: 'in.png', index: index)
+    expect(side.triangles[index].index).to eq index
   end
 
 end

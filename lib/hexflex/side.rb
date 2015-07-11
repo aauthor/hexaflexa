@@ -10,7 +10,9 @@ module Hexflex
     #   symbol, string, or hex number representing a color
     def initialize(opts = {})
       self.fill = opts[:fill]
-      self.triangles = Array.new(6, Triangle.new(fill: self.fill))
+      self.triangles = Array.new(6) do |index|
+        Triangle.new(fill: fill, index: index)
+      end
     end
 
   end
