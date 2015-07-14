@@ -55,6 +55,8 @@ describe Hexflex::TriangleVector do
           triangle_base_to_center = 1.0/3.0 * triangle_height
           triangle_center_to_top = 2.0/3.0 * triangle_height
 
+          expected_rotation = 60 * triangle.index
+
           expect(Magick::Image).to receive(:read).and_return(image_list)
           expect(Magick::RVG::ClipPath).to receive(:new).and_return(clip_path)
           expect(clip_path).to receive(:polygon).with(
@@ -63,7 +65,12 @@ describe Hexflex::TriangleVector do
             -triangle_half_base, -triangle_base_to_center
           )
           expect(group).to receive(:image).with(image).and_return(image_use)
-          expect(image_use).to receive(:translate).with(-triangle_base, -triangle_base_to_center)
+          expect(image_use).to receive(:translate)
+            .with(-triangle_base, -triangle_base_to_center)
+            .and_return(image_use)
+          expect(image_use).to receive(:rotate)
+            .with(expected_rotation, triangle_base, triangle_height)
+            .and_return(image_use)
           expect(group).to receive(:styles).with(clip_path: clip_path)
 
           subject

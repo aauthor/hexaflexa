@@ -50,6 +50,7 @@ module Hexflex
       end
       Magick::RVG::Group.new.tap do |group|
         group.image(image).translate(-@triangle_base, -triangle_base_to_center)
+          .rotate(60*@triangle.index, triangle_base, triangle_height)
         group.styles(clip_path: clip_path)
       end
     end
