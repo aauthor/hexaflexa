@@ -3,5 +3,10 @@
 require "bundler/setup"
 require "hexflex"
 
-puts "Generating trihexaflexagon..."
-Hexflex::build("hexaflexagon.yml")
+side_fills = ARGV[0..2]
+output_file_name = ARGV[3]
+
+Hexflex.make_template_image(
+  side_fills: side_fills,
+  output_file_name: output_file_name
+)
