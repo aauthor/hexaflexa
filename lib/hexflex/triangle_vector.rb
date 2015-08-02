@@ -7,6 +7,7 @@ module Hexflex
 
     def initialize(triangle)
       @triangle = triangle
+      @triangle_fill = @triangle.fill.to_s
       @rvg_vector = assemble!
       super(@rvg_vector)
     end
@@ -14,7 +15,7 @@ module Hexflex
     private
 
     def assemble!
-      if @triangle.fill =~ /\.png$/i
+      if @triangle_fill.include? '.'
         make_cut_image_triangle
       else
         make_simple_color_triangle
@@ -26,12 +27,12 @@ module Hexflex
       @triangle_height = HEIGHT
       Magick::RVG::Group.new.tap do |group|
         group.polygon(0, RADIUS, HALF_BASE, -HEIGHT_AFTER_RADIUS, -HALF_BASE, -HEIGHT_AFTER_RADIUS)
-          .styles(fill: @triangle.fill.to_s)
+          .styles(fill: @triangle_fill)
       end
     end
 
     def make_cut_image_triangle
-      image = Magick::Image.read(@triangle.fill).first
+      image = Magick::Image.read(@triangle_fill).first
 
       image_width = image.columns
       image_height = image.rows
@@ -50,7 +51,7 @@ module Hexflex
       end
       Magick::RVG::Group.new.tap do |group|
         group.image(image).translate(-@triangle_base, -triangle_base_to_center)
-          .rotate(60*@triangle.index, triangle_base, triangle_height)
+          .rotate(-60*@triangle.index, triangle_base, triangle_height)
         group.styles(clip_path: clip_path)
       end
     end

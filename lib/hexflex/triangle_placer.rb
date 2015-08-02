@@ -39,7 +39,7 @@ module Hexflex
 
     def rotation
       if rotate?
-        60
+        -60
       else
         0
       end

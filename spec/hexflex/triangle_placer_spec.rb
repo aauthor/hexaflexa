@@ -48,14 +48,14 @@ describe Hexflex::TrianglePlacer do
       context "even" do
         let(:indexes) { (0..8).step(2) }
         it "does not rotate the triangle" do
-          expect(triangle_vector_use).to_not receive(:rotate).with(60)
+          expect(triangle_vector_use).to_not receive(:rotate).with(-60)
           subject.place!
         end
       end
       context "odd" do
         let(:indexes) { (1..9).step(2) }
         it "rotates the triangle" do
-          expect(triangle_vector_use).to receive(:rotate).with(60)
+          expect(triangle_vector_use).to receive(:rotate).with(-60)
           subject.place!
         end
         it "move the triangle down to be in line with the others" do
@@ -92,7 +92,7 @@ describe Hexflex::TrianglePlacer do
       context "even" do
         let(:indexes) { (0..8).step(2) }
         it "rotates the triangle" do
-          expect(triangle_vector_use).to_not receive(:rotate).with(60)
+          expect(triangle_vector_use).to_not receive(:rotate).with(-60)
           subject.place!
         end
       end
