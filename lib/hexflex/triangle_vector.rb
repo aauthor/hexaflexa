@@ -26,7 +26,11 @@ module Hexflex
       @triangle_base = BASE
       @triangle_height = HEIGHT
       Magick::RVG::Group.new.tap do |group|
-        group.polygon(0, RADIUS, HALF_BASE, -HEIGHT_AFTER_RADIUS, -HALF_BASE, -HEIGHT_AFTER_RADIUS)
+        group.polygon(
+          0,                 @triangle_height,
+          @triangle_base,    @triangle_height,
+          @triangle_base/2,  0
+        )
           .styles(fill: @triangle_fill)
       end
     end
@@ -44,13 +48,13 @@ module Hexflex
 
       clip_path = Magick::RVG::ClipPath.new.tap do |path|
         path.polygon(
-          0,                   triangle_center_to_top,
-          triangle_half_base, -triangle_base_to_center,
-          -triangle_half_base, -triangle_base_to_center
+          0,                 @triangle_height,
+          @triangle_base,    @triangle_height,
+          @triangle_base/2,  0
         )
       end
       Magick::RVG::Group.new.tap do |group|
-        group.image(image).translate(-@triangle_base, -triangle_base_to_center)
+        group.image(image)
           .rotate(-60*@triangle.index, triangle_base, triangle_height)
         group.styles(clip_path: clip_path)
       end

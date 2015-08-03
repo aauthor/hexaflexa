@@ -11,7 +11,7 @@ module Hexflex
 
     def initialize
       width = 10.in
-      height = width * Math::sqrt(3)/5.5
+      height = width * Math::sqrt(3)/5.0
       self.vector_graphic = Magick::RVG.new(width, height)
       self.vector_graphic.background_fill = "white"
     end

@@ -7,7 +7,7 @@ module Hexflex
       @triangle_vector = triangle_vector
       @index = index.to_i
 
-      @triangle_base = @canvas.width / 5.5
+      @triangle_base = @canvas.width / 5.0
       @triangle_half_base = @triangle_base / 2.0
       @triangle_height = @canvas.height / 2.0
       @triangle_height_after_radius = @triangle_height / 3.0
@@ -15,33 +15,31 @@ module Hexflex
 
     def place!
       @canvas.use(triangle_vector)
-        .translate(*origin_shift)
         .translate(*lateral_placement)
         .translate(*vertical_placement)
-        .translate(*pre_rotation_vertical_adjustment)
         .rotate(*rotation)
         .scale(*normalize_triangle_scale)
     end
 
     private
 
-    def origin_shift
-      [@triangle_half_base, @triangle_height_after_radius]
-    end
-
     def lateral_placement
-      [(@triangle_half_base * index) % (@triangle_half_base * 10), 0]
+      if first_row?
+        [@triangle_base * (index_on_row/2).floor, 0]
+      else
+        [(@triangle_base * ((index_on_row+1)/2).floor) - @triangle_base/2.0, 0]
+      end
     end
 
     def vertical_placement
-      [0, (@index/10) * @triangle_height]
+      [0, (@index/9) * @triangle_height]
     end
 
     def rotation
       if rotate?
-        -60
+        [60, @triangle_base, @triangle_height]
       else
-        0
+        [0]
       end
     end
 
@@ -61,11 +59,19 @@ module Hexflex
     end
 
     def rotate?
-      if index < 10
-        index.odd?
-      else
-        index.even?
-      end
+      index.odd?
+    end
+
+    def first_row?
+      index < 9
+    end
+
+    def second_row?
+      !second_row?
+    end
+
+    def index_on_row
+      index % 9
     end
 
   end
