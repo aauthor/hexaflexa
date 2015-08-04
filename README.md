@@ -1,4 +1,5 @@
 # Hexflex
+
 Hexflex is a Ruby gem and command-line tool for automatically generating
 [hexaflexagon] templates.
 
@@ -15,6 +16,4 @@ Hexflex is a Ruby gem and command-line tool for automatically generating
 Where `BACKGROUND` can be standard color or path to file.  `OUTPUT_FILE` is
 where you want to save your hexaflexagon template.
 
-```
-hexflex 
 [hexaflexagon]: http://en.wikipedia.org/wiki/Flexagon#Trihexaflexagon

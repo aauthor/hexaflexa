@@ -4,14 +4,20 @@ require "bundler/setup"
 require "hexflex"
 
 def help_requested?
+  return true if ARGV[0].nil?
   first_flag = ARGV[0].downcase
   first_flag == '-h' || first_flag == '--help'
 end
 
 if help_requested?
   read_me = File.read File.expand_path('../../README.md', __FILE__)
-  puts "READMD.md"
+
+  puts 
+  puts 'READMD.md'
+  puts 
   puts read_me
+  puts
+
   exit 0
 end
 
