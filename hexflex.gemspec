@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Tom Dunlap"]
   spec.email         = ["apocryphalauthor@gmail.com"]
 
-  spec.summary       = "Generate hexaflexagons read to print and fold!"
+  spec.summary       = "Generate hexaflexagons to print and fold!"
   spec.description   = `cat README.md`
   spec.homepage      = "http://github.com/aauthor/hexflex"
   spec.license       = "MIT"
