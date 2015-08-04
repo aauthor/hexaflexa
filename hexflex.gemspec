@@ -9,10 +9,6 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Tom Dunlap"]
   spec.email         = ["apocryphalauthor@gmail.com"]
 
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com' to prevent pushes to rubygems.org, or delete to allow pushes to any server."
-  end
-
   spec.summary       = "Generate hexaflexagons read to print and fold!"
   spec.description   = `cat README.md`
   spec.homepage      = "http://github.com/aauthor/hexflex"
@@ -27,7 +23,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "activesupport", "~>4.2.1"
 
   spec.add_development_dependency "bundler", "~> 1.7"
-  spec.add_development_dependency "rspec", "~> 3.2.0"
   spec.add_development_dependency "rake", "~> 10.4.2"
   spec.add_development_dependency "pry-byebug", "~> 3.1.0"
 end

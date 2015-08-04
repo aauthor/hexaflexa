@@ -2,7 +2,7 @@ require "bundler/gem_tasks"
 require "rspec/core/rake_task"
 require "hexflex"
 
-task :default => [:color_test, :image_test, :photo_test]
+task :default => [:color_test, :image_test, :photo_test, :help]
 
 task :color_test do
   Hexflex.make_template_image(
@@ -34,4 +34,8 @@ task :photo_test do
     ]
   )
   puts "Photo test output to photo_test.png."
+end
+
+task :help do
+  `bin/hexflex --help`
 end

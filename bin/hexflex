@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "hexflex"
+
+def help_requested?
+  first_flag = ARGV[0].downcase
+  first_flag == '-h' || first_flag == '--help'
+end
+
+if help_requested?
+  read_me = File.read File.expand_path('../../README.md', __FILE__)
+  puts "READMD.md"
+  puts read_me
+  exit 0
+end
+
+side_fills = ARGV[0..2]
+output_file_name = ARGV[3]
+
+Hexflex.make_template_image(
+  side_fills: side_fills,
+  output_file_name: output_file_name
+)
