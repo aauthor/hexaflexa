@@ -1,28 +1,33 @@
 require "rvg/rvg"
+require 'hexflex/image_rvg_triangle_assembler'
 
 module Hexflex
   class TriangleVector < SimpleDelegator
+
 
     attr_reader :triangle, :triangle_base, :triangle_height
 
     def initialize(triangle)
       @triangle = triangle
       @triangle_fill = @triangle.fill.to_s
-      @rvg_vector = assemble!
+      if image_fill?
+        assembler = ImageRvgTriangleAssembler.new(@triangle_fill, @triangle.index)
+        @rvg_vector = assembler.assemble!
+        @triangle_base = assembler.triangle_base
+        @triangle_height = assembler.triangle_height
+      else
+        @rvg_vector = assemble_simple_triangle!
+      end
       super(@rvg_vector)
     end
 
     private
 
-    def assemble!
-      if @triangle_fill.include? '.'
-        make_cut_image_triangle
-      else
-        make_simple_color_triangle
-      end
+    def image_fill?
+      @triangle_fill.include? '.'
     end
 
-    def make_simple_color_triangle
+    def assemble_simple_triangle!
       @triangle_base = BASE
       @triangle_height = HEIGHT
       Magick::RVG::Group.new.tap do |group|
@@ -36,28 +41,21 @@ module Hexflex
     end
 
     def make_cut_image_triangle
-      image = Magick::Image.read(@triangle_fill).first
+    end
 
-      image_width = image.columns
-      image_height = image.rows
-      @triangle_base = image_width / 2
-      triangle_half_base = @triangle_base / 2
-      @triangle_height = image_height / 2
-      triangle_base_to_center = 1.0/3.0 * @triangle_height
-      triangle_center_to_top = 2.0/3.0 * @triangle_height
+    private
 
-      clip_path = Magick::RVG::ClipPath.new.tap do |path|
-        path.polygon(
-          0,                 @triangle_height,
-          @triangle_base,    @triangle_height,
-          @triangle_base/2,  0
-        )
+    def triangle_dimensions(image)
+      ratio = image.columns.to_f / image.rows
+      if ratio > SIDE_RESOLUTION_RATIO
+
+      else
+
       end
-      Magick::RVG::Group.new.tap do |group|
-        group.image(image)
-          .rotate(-60*@triangle.index, triangle_base, triangle_height)
-        group.styles(clip_path: clip_path)
-      end
+    end
+
+    def wider_than_normalized_side?
+
     end
 
   end
