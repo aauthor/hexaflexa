@@ -35,7 +35,3 @@ task :photo_test do
   )
   puts "Photo test output to photo_test.png."
 end
-
-task :help do
-  `bin/hexflex --help`
-end
