@@ -40,23 +40,7 @@ module Hexflex
       end
     end
 
-    def make_cut_image_triangle
-    end
-
     private
-
-    def triangle_dimensions(image)
-      ratio = image.columns.to_f / image.rows
-      if ratio > SIDE_RESOLUTION_RATIO
-
-      else
-
-      end
-    end
-
-    def wider_than_normalized_side?
-
-    end
 
   end
 end
