@@ -1,8 +1,8 @@
 module Hexflex
   class ImageRvgTriangleAssembler
 
-    def initialize(image_name, index)
-      @image = Magick::Image.read(image_name).first
+    def initialize(image, index)
+      @image = image
       @index = index
     end
 

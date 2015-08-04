@@ -9,7 +9,7 @@ module Hexflex
 
     def initialize(triangle)
       @triangle = triangle
-      @triangle_fill = @triangle.fill.to_s
+      @triangle_fill = @triangle.fill
       if image_fill?
         assembler = ImageRvgTriangleAssembler.new(@triangle_fill, @triangle.index)
         @rvg_vector = assembler.assemble!
@@ -24,7 +24,7 @@ module Hexflex
     private
 
     def image_fill?
-      @triangle_fill.include? '.'
+      @triangle_fill.is_a? Magick::Image
     end
 
     def assemble_simple_triangle!
