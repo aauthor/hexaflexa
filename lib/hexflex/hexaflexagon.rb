@@ -14,11 +14,15 @@ module Hexflex
     end
 
     def as_template
-      Templater.new(self).make_template
+      Template.new(self)
     end
 
     def triangles
       self.sides.map(&:triangles).flatten
+    end
+
+    def triangles_in_template_order
+      TemplateOrderer.new(self).triangles
     end
 
     private
