@@ -7,8 +7,8 @@ module Hexflex
 
     attr_accessor :sides
 
-    def initialize(opts)
-      @raw_fills = opts.fetch(:side_fills)
+    def initialize(side_fills)
+      @raw_fills = side_fills
       @sides = Array.new(3) do |index|
         Side.new(fill: fills[index])
       end
