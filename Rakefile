@@ -1,7 +1,10 @@
 require "bundler/gem_tasks"
+require 'rspec/core/rake_task'
 require "hexflex"
 
-task :default => [:color_test, :image_test, :photo_test]
+RSpec::Core::RakeTask.new(:spec)
+
+task :default => [:color_test, :image_test, :photo_test, :spec]
 
 TEST_FIXTURES= "spec/fixtures"
 
