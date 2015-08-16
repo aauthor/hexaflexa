@@ -3,7 +3,7 @@ require "hexflex"
 
 task :default => [:color_test, :image_test, :photo_test]
 
-TEST_FIXTURES= "test/fixtures"
+TEST_FIXTURES= "spec/fixtures"
 
 task :color_test do
   Hexflex.make_template_image(
