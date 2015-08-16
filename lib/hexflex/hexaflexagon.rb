@@ -1,5 +1,6 @@
 require "hexflex/side"
-require "hexflex/templater"
+require "hexflex/template"
+require "hexflex/template_orderer"
 
 module Hexflex
   class Hexaflexagon
