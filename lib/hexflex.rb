@@ -11,18 +11,11 @@ module Hexflex
       Hexaflexagon.new(side_fills).as_template
     end
 
-    def make_template_image(opts = {})
-      output_file_name = opts.delete(:output_file_name)
-      template = make_template(opts)
+    def create_template_image!(output_file_name: 'out.png', side_fills: nil)
+      template_opts = side_fills.present? ? {side_fills: side_fills} : {}
+      template = make_template(template_opts)
       template.save(output_file_name)
     end
 
-    private
-
-    def defaults_template_options
-      {
-        side_fills: [:red, :red, :red]
-      }
-    end
   end
 end
