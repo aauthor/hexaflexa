@@ -4,6 +4,8 @@ require 'hexflex/image_rvg_triangle_assembler'
 module Hexflex
   class TriangleVector < SimpleDelegator
 
+    SIMPLE_TRIANGLE_BASE = Math::sqrt(3)
+    SIMPLE_TRIANGLE_HEIGHT = 1.5
 
     attr_reader :triangle, :triangle_base, :triangle_height
 
@@ -28,8 +30,8 @@ module Hexflex
     end
 
     def assemble_simple_triangle!
-      @triangle_base = BASE
-      @triangle_height = HEIGHT
+      @triangle_base = SIMPLE_TRIANGLE_BASE
+      @triangle_height = SIMPLE_TRIANGLE_HEIGHT
       Magick::RVG::Group.new.tap do |group|
         group.polygon(
           0,                 @triangle_height,

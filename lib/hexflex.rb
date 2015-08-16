@@ -6,12 +6,6 @@ require "hexflex/hexaflexagon"
 
 module Hexflex
 
-  RADIUS = 1.0
-  BASE = Math::sqrt(3)
-  HEIGHT = 1.5
-  HEIGHT_AFTER_RADIUS = HEIGHT - RADIUS
-  HALF_BASE = BASE / 2
-
   class << self
     def make_template(opts = {})
       Hexaflexagon.new(opts).as_template
