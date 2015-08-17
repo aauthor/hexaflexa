@@ -7,14 +7,15 @@ require "hexflex/hexaflexagon"
 module Hexflex
 
   class << self
-    def make_template(side_fills: [:red, :red, :red])
-      Hexaflexagon.new(side_fills).as_template
+    def make_template_vector(side_fills: [:cyan, :magenta, :yellow])
+      template = Hexaflexagon.new(side_fills).as_template
+      template.make_vector
     end
 
     def create_template_image!(output_file_name: 'out.png', side_fills: nil)
       template_opts = side_fills.present? ? {side_fills: side_fills} : {}
-      template = make_template(template_opts)
-      template.save(output_file_name)
+      vector = make_template_vector(template_opts)
+      vector.draw.write(output_file_name)
     end
 
   end

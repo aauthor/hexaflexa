@@ -6,8 +6,6 @@ module Hexflex
 
     ::Magick::RVG::dpi = 72
 
-    attr_reader :vector
-
     def initialize(hexaflexagon)
       @hexaflexagon = hexaflexagon
     end
@@ -20,12 +18,8 @@ module Hexflex
       width * Math::sqrt(3)/5.0
     end
 
-    def vector
-      @vector ||= make_graphic
-    end
-
-    def save(filename)
-      vector.draw.write(filename)
+    def make_vector
+      make_graphic
     end
 
     private
@@ -33,14 +27,13 @@ module Hexflex
     attr_reader :hexaflexagon
 
     def make_graphic
-      Magick::RVG.new(width, height).tap do |graphic|
-        @vector = graphic
+      Magick::RVG.new(width, height).tap do |vector|
         vector.background_fill = "white"
-        place_triangles
+        place_triangles(vector)
       end
     end
 
-    def place_triangles
+    def place_triangles(vector)
       ordered_triangles.each_with_index do |triangle, index|
         TrianglePlacer.new(vector, triangle.vector, index).place!
       end
