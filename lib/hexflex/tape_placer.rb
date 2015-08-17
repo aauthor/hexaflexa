@@ -1,5 +1,5 @@
 module Hexflex
-  class TrianglePlacer
+  class TapePlacer
     attr_reader :canvas, :triangle_vector, :index
 
     def initialize(canvas, triangle_vector, index)

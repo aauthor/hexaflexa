@@ -1,5 +1,6 @@
 require "hexflex/side"
-require "hexflex/template"
+require "hexflex/tape_template"
+require "hexflex/glue_template"
 require "hexflex/template_orderer"
 
 module Hexflex
@@ -14,8 +15,13 @@ module Hexflex
       end
     end
 
-    def as_template
-      Template.new(self)
+    def as_template(template)
+      case template
+      when :glue
+        GlueTemplate.new(self)
+      when :tape
+        TapeTemplate.new(self)
+      end
     end
 
     def triangles

@@ -4,7 +4,8 @@ require "hexflex"
 
 RSpec::Core::RakeTask.new(:spec)
 
-task :default => [:default_test, :color_test, :image_test, :photo_test, :spec]
+task :default => [:default_test, :color_test, :image_test, :photo_test,
+                  :glue_test, :spec]
 
 TEST_FIXTURES= "spec/fixtures"
 
@@ -46,4 +47,18 @@ task :photo_test do
     ]
   )
   puts "Photo test output to #{fixture_path}/photo_test.png."
+end
+
+task :glue_test do
+  fixture_path = "#{TEST_FIXTURES}/photo_test"
+  Hexflex.create_template_image!(
+    output_file_name: "#{TEST_FIXTURES}/glue_test.png",
+    side_fills: [
+      "#{fixture_path}/1.jpg",
+      "#{fixture_path}/2.jpg",
+      "#{fixture_path}/3.jpg"
+    ],
+    template: :glue
+  )
+  puts "Photo test output to #{TEST_FIXTURES}/glue_test.png."
 end

@@ -38,6 +38,35 @@ describe Hexflex do
       it_behaves_like 'a properly prepared template vector'
     end
 
+    context 'with perfectly scaled image sides' do
+      subject do
+        described_class.make_template_vector(
+          side_fills: [
+            'spec/fixtures/image_test/1.png',
+            'spec/fixtures/image_test/2.png',
+            'spec/fixtures/image_test/3.png'
+          ]
+        )
+      end
+      let(:expected_image_path) { 'spec/fixtures/image_test/image_test.png' }
+
+      it_behaves_like 'a properly prepared template vector'
+    end
+
+    context 'with arbitrary photo sides' do
+      subject do
+        described_class.make_template_vector(
+          side_fills: [
+            'spec/fixtures/photo_test/1.jpg',
+            'spec/fixtures/photo_test/2.jpg',
+            'spec/fixtures/photo_test/3.jpg'
+          ]
+        )
+      end
+      let(:expected_image_path) { 'spec/fixtures/photo_test/photo_test.png' }
+
+      it_behaves_like 'a properly prepared template vector'
+    end
   end
 
 end
