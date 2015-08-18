@@ -4,8 +4,11 @@ require "hexflex"
 
 RSpec::Core::RakeTask.new(:spec)
 
-task :default => [:default_test, :color_test, :image_test, :photo_test,
-                  :glue_test, :spec]
+task :default =>
+  [:spec, :default_test, :color_test, :image_test, :photo_test, :glue_test]
+
+task :generate_fixtures =>
+  [:default_test, :color_test, :image_test, :photo_test, :glue_test]
 
 TEST_FIXTURES= "spec/fixtures"
 

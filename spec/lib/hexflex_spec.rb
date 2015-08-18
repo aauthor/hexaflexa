@@ -2,9 +2,33 @@ describe Hexflex do
 
   describe '#make_template' do
 
-    RSpec::Matchers.define :render_to do |expected|
-      match do |actual|
-        expected.difference(actual.draw)[1] < 0.001
+    matcher :render_to do |fixture|
+
+      match do |vector|
+        render_similar(fixture, vector)
+      end
+
+      # success_message do |vector|
+      #   image_difference vector
+      # end
+
+      failure_message do |vector|
+        "expected that the generated output be the same as template\n" +
+          "[mean_error_per_pixel, normalized_mean_error, normalized_maximum_error]\n" +
+          image_difference(fixture, vector).inspect
+      end
+
+      failure_message_when_negated do |vector|
+        "expected that the generated output be different from the template\n" +
+          image_difference(fixture, vector).inspect
+      end
+
+      def render_similar(fixture, vector)
+        image_difference(fixture, vector)[1] < 0.001
+      end
+
+      def image_difference(fixture, vector)
+        fixture.difference(vector.draw)
       end
     end
 
