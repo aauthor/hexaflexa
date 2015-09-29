@@ -9,14 +9,8 @@ describe Hexflex do
       end
 
       failure_message do |vector|
-        "expected that the generated output be the same as template\n" +
-          "[mean_error_per_pixel, normalized_mean_error, normalized_maximum_error]\n" +
-          image_difference(fixture, vector).inspect
-      end
-
-      failure_message_when_negated do |vector|
-        "expected that the generated output be different from the template\n" +
-          image_difference(fixture, vector).inspect
+        "expected that the generated output be the same as template" +
+          debug_output(fixture, vector)
       end
 
       def render_similar(fixture, vector)
@@ -25,6 +19,20 @@ describe Hexflex do
 
       def image_difference(fixture, vector)
         fixture.difference(vector.draw)
+      end
+
+      def debug_output(fixture, vector)
+        debug_image_path =
+          "tmp/" +
+          RSpec.current_example.full_description.parameterize('_') +
+          "_#{Time.current.to_i}.png"
+        vector.draw.write(debug_image_path)
+
+        "\nDEBUG OUTPUT:\n" +
+          "[mean_error_per_pixel, normalized_mean_error, normalized_maximum_error]\n" +
+          image_difference(fixture, vector).inspect + "\n" +
+          "Take a look for yourself:\n" +
+          debug_image_path
       end
     end
 
@@ -42,7 +50,7 @@ describe Hexflex do
 
     context 'with no opts passed in' do
       subject { described_class.make_template_vector }
-      let(:expected_image_path) { 'out.png' }
+      let(:expected_image_path) { 'spec/fixtures/default_out.png' }
 
       it_behaves_like 'a properly prepared template vector'
     end
@@ -53,7 +61,7 @@ describe Hexflex do
           side_fills: [ 'blue', 'green', 'yellow' ]
         )
       end
-      let(:expected_image_path) { 'spec/fixtures/color_test/color_test.png' }
+      let(:expected_image_path) { 'spec/fixtures/color_out.png' }
 
       it_behaves_like 'a properly prepared template vector'
     end
@@ -62,13 +70,13 @@ describe Hexflex do
       subject do
         described_class.make_template_vector(
           side_fills: [
-            'spec/fixtures/image_test/1.png',
-            'spec/fixtures/image_test/2.png',
-            'spec/fixtures/image_test/3.png'
+            'spec/fixtures/images/1.png',
+            'spec/fixtures/images/2.png',
+            'spec/fixtures/images/3.png'
           ]
         )
       end
-      let(:expected_image_path) { 'spec/fixtures/image_test/image_test.png' }
+      let(:expected_image_path) { 'spec/fixtures/image_out.png' }
 
       it_behaves_like 'a properly prepared template vector'
     end
@@ -77,13 +85,13 @@ describe Hexflex do
       subject do
         described_class.make_template_vector(
           side_fills: [
-            'spec/fixtures/photo_test/1.jpg',
-            'spec/fixtures/photo_test/2.jpg',
-            'spec/fixtures/photo_test/3.jpg'
+            'spec/fixtures/photos/1.jpg',
+            'spec/fixtures/photos/2.jpg',
+            'spec/fixtures/photos/3.jpg'
           ]
         )
       end
-      let(:expected_image_path) { 'spec/fixtures/photo_test/photo_test.png' }
+      let(:expected_image_path) { 'spec/fixtures/photo_out.png' }
 
       it_behaves_like 'a properly prepared template vector'
     end

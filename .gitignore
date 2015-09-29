@@ -8,6 +8,7 @@
 /test/tmp/
 /test/version_tmp/
 /tmp/
+/.rake_tasks~
 
 ## Specific to RubyMotion:
 .dat*
@@ -38,5 +39,4 @@ tags
 feh*
 
 # don't commit these unless you make a design change
-out.png
-/spec/fixutres/**/*.png
+/*.png
