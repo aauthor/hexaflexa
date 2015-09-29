@@ -36,3 +36,7 @@ Gemfile.lock
 # development related files
 tags
 feh*
+
+# don't commit these unless you make a design change
+out.png
+/spec/fixutres/**/*.png
