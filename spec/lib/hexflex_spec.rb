@@ -8,10 +8,6 @@ describe Hexflex do
         render_similar(fixture, vector)
       end
 
-      # success_message do |vector|
-      #   image_difference vector
-      # end
-
       failure_message do |vector|
         "expected that the generated output be the same as template\n" +
           "[mean_error_per_pixel, normalized_mean_error, normalized_maximum_error]\n" +
@@ -24,7 +20,7 @@ describe Hexflex do
       end
 
       def render_similar(fixture, vector)
-        image_difference(fixture, vector)[1] < 0.001
+        image_difference(fixture, vector)[1] < 0.01
       end
 
       def image_difference(fixture, vector)
