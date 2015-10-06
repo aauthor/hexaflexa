@@ -3,47 +3,34 @@ require "rvg/rvg"
 module Hexflex
   class BaseTemplate
 
+    class InterfaceViolation < StandardError
+      def message
+        "##{method} must be defined by classes implementing BaseTemplate."
+      end
+
+      def method
+        backtrace.first.split.last.delete("`'")
+      end
+    end
+
     ::Magick::RVG::dpi = 72
+
+    attr_reader :hexaflexagon
 
     def initialize(hexaflexagon)
       @hexaflexagon = hexaflexagon
     end
 
     def width
-      raise '#width must be implemented by the child class.'
+      fail InterfaceViolation
     end
 
     def height
-      raise '#height must be implemented by the child class.'
+      fail InterfaceViolation
     end
 
     def make_vector
-      make_graphic
-    end
-
-    private
-
-    attr_reader :hexaflexagon
-
-    def make_graphic
-      Magick::RVG.new(width, height).tap do |vector|
-        vector.background_fill = "white"
-        place_triangles(vector)
-      end
-    end
-
-    def place_triangles(vector)
-      ordered_triangles.each_with_index do |triangle, index|
-        placer.new(vector, triangle.vector, index).place!
-      end
-    end
-
-    def ordered_triangles
-      hexaflexagon.triangles_in_template_order
-    end
-
-    def placer
-      raise '#placer must be implemented by the child class.'
+      fail InterfaceViolation
     end
 
   end
