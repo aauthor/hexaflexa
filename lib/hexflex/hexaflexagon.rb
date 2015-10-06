@@ -34,11 +34,9 @@ module Hexflex
 
     private
 
-    attr_reader :raw_fills
-
     def fills
       @fills ||=
-        raw_fills.map(&:to_s).map do |raw_fill|
+        @raw_fills.map(&:to_s).map do |raw_fill|
           if raw_fill.include? '.'
             Magick::Image.read(raw_fill).first
           else
