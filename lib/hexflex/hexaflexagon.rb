@@ -20,7 +20,7 @@ module Hexflex
       when :glue
         GlueTemplate.new(self)
       when :tape
-        TapeTemplate.new(self)
+        TapeTemplate.new(sides)
       end
     end
 

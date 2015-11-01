@@ -7,7 +7,7 @@ module Hexflex
     SIMPLE_TRIANGLE_BASE = Math::sqrt(3)
     SIMPLE_TRIANGLE_HEIGHT = 1.5
 
-    attr_reader :triangle, :triangle_base, :triangle_height
+    attr_reader :triangle, :base, :height
 
     def initialize(triangle)
       @triangle = triangle
@@ -15,8 +15,8 @@ module Hexflex
       if image_fill?
         assembler = ImageRvgTriangleAssembler.new(@triangle_fill, @triangle.index)
         @rvg_vector = assembler.assemble!
-        @triangle_base = assembler.triangle_base
-        @triangle_height = assembler.triangle_height
+        @base = assembler.triangle_base
+        @height = assembler.triangle_height
       else
         @rvg_vector = assemble_simple_triangle!
       end
@@ -30,13 +30,13 @@ module Hexflex
     end
 
     def assemble_simple_triangle!
-      @triangle_base = SIMPLE_TRIANGLE_BASE
-      @triangle_height = SIMPLE_TRIANGLE_HEIGHT
+      @base = SIMPLE_TRIANGLE_BASE
+      @height = SIMPLE_TRIANGLE_HEIGHT
       Magick::RVG::Group.new.tap do |group|
         group.polygon(
-          0,                 @triangle_height,
-          @triangle_base,    @triangle_height,
-          @triangle_base/2,  0
+          0, @height,
+          @base, @height,
+          @base/2, 0
         )
           .styles(fill: @triangle_fill)
       end

@@ -13,20 +13,10 @@ module Hexflex
       end
     end
 
-    ::Magick::RVG::dpi = 72
+    attr_reader :sides
 
-    attr_reader :hexaflexagon
-
-    def initialize(hexaflexagon)
-      @hexaflexagon = hexaflexagon
-    end
-
-    def width
-      fail InterfaceViolation
-    end
-
-    def height
-      fail InterfaceViolation
+    def initialize(sides)
+      @sides= sides
     end
 
     def make_vector
