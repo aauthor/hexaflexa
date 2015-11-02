@@ -28,9 +28,5 @@ module Hexflex
       self.sides.map(&:triangles).flatten
     end
 
-    def triangles_in_template_order
-      TemplateOrderer.new(self).triangles
-    end
-
   end
 end
