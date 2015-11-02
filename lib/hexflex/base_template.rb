@@ -13,10 +13,11 @@ module Hexflex
       end
     end
 
-    attr_reader :sides
+    attr_reader :hexaflexagon, :sides
 
-    def initialize(sides)
-      @sides= sides
+    def initialize(hexaflexagon)
+      @hexaflexagon = hexaflexagon
+      @sides = hexaflexagon.sides
     end
 
     def make_vector

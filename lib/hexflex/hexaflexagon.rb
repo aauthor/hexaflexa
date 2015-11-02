@@ -1,7 +1,4 @@
 require "hexflex/side"
-require "hexflex/tape_template"
-require "hexflex/glue_template"
-require "hexflex/template_orderer"
 
 module Hexflex
   class Hexaflexagon
@@ -12,15 +9,6 @@ module Hexflex
       @raw_fills = side_fills
       @sides = Array.new(3) do |index|
         Side.new(fill: side_fills[index])
-      end
-    end
-
-    def as_template(template)
-      case template
-      when :glue
-        GlueTemplate.new(self)
-      when :tape
-        TapeTemplate.new(sides)
       end
     end
 
