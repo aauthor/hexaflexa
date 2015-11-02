@@ -1,4 +1,4 @@
-require "hexflex/triangle_vector"
+require 'rvg/rvg'
 
 module Hexflex
   class Triangle
@@ -14,9 +14,12 @@ module Hexflex
       @index = opts[:index]
     end
 
-    # turns the triangle into a group that can be used by RVG
-    def vector
-      TriangleVector.new(self)
+    def image_fill?
+      @fill.is_a? Magick::Image
+    end
+
+    def color_fill?
+      !image_fill?
     end
 
     class << self

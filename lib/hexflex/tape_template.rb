@@ -6,12 +6,12 @@ module Hexflex
   class TapeTemplate < BaseTemplate
 
     def make_vector
-      RvgTemplateVectorizer.new(template_triangles).vectorize
+      RvgTemplateVectorizer.new(triangle_grid).vectorize
     end
 
     private
 
-    def template_triangles
+    def triangle_grid
       TriangleGrid.new.tap do |grid|
         grid.place(sides[0].triangles[0], 0, 0)
         grid.place(sides[0].triangles[1], 0, 1)

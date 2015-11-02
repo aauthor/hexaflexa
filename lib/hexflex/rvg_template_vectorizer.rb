@@ -1,4 +1,6 @@
 require 'rvg/rvg'
+require 'hexflex/rvg_image_triangle_vectorizer'
+require 'hexflex/rvg_color_triangle_vectorizer'
 
 module Hexflex
   class RvgTemplateVectorizer
@@ -11,7 +13,7 @@ module Hexflex
     end
 
     def vectorize
-      @vector || make_vector
+      @vector ||= make_vector
     end
 
     private
@@ -29,18 +31,25 @@ module Hexflex
         vector_height / 2.0
     end
 
-
     def make_vector
       Magick::RVG.new(vector_width, vector_height).tap do |vector|
-
         vector.background_fill = "white"
 
         triangle_grid.grid_triangles.each do |triangle|
-          vector.use(triangle.vector)
+          triangle_vector = triangle_vector(triangle)
+          vector.use(triangle_vector)
             .translate(lateral_placement(triangle), vertical_placement(triangle))
             .rotate(rotation(triangle), triangle_base, triangle_height)
-            .scale(horizonal_normalization(triangle), vertical_normalization(triangle))
+            .scale(horizonal_normalization(triangle_vector), vertical_normalization(triangle_vector))
         end
+      end
+    end
+
+    def triangle_vector(triangle)
+      if triangle.image_fill?
+        RvgImageTriangleVectorizer.new(triangle).vectorize
+      else
+        RvgColorTriangleVectorizer.new(triangle).vectorize
       end
     end
 
@@ -64,12 +73,12 @@ module Hexflex
       end
     end
 
-    def horizonal_normalization(triangle)
-      triangle_base / triangle.vector.base
+    def horizonal_normalization(triangle_vector)
+      triangle_base / triangle_vector.base
     end
 
-    def vertical_normalization(triangle)
-      triangle_height / triangle.vector.height
+    def vertical_normalization(triangle_vector)
+      triangle_height / triangle_vector.height
     end
 
   end
