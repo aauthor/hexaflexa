@@ -5,7 +5,7 @@ module Hexflex
 
     def initialize(triangle)
       @triangle = triangle
-      @image = triangle.fill
+      @image = Magick::Image.read(triangle.fill).first
       @index = triangle.index
     end
 

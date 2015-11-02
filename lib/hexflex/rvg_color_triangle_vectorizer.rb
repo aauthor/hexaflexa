@@ -32,7 +32,7 @@ module Hexflex
           0, height,
           base, height,
           base/2, 0
-        ).styles(fill: @triangle.fill)
+        ).styles(fill: @triangle.fill.to_s)
       end
     end
   end
