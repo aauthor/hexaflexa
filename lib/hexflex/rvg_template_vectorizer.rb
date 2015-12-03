@@ -18,17 +18,26 @@ module Hexflex
 
     private
 
-    def vector_width; 10.in; end
-    def vector_height; vector_width * Math::sqrt(3)/5.0; end
+    def vector_width
+      10.in
+    end
+
+    def vector_height
+      vector_width * Math::sqrt(3) / triangle_base_lengths_per_row
+    end
 
     def triangle_base
       @triangle_base ||=
-        vector_width / ((triangle_grid.triangles_per_row + 1) / 2.0)
+        vector_width / triangle_base_lengths_per_row
     end
 
     def triangle_height
       @triangle_height ||=
         vector_height / 2.0
+    end
+
+    def triangle_base_lengths_per_row
+      (triangle_grid.triangles_per_row + 1) / 2.0
     end
 
     def make_vector

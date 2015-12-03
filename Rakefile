@@ -62,5 +62,5 @@ task :glue_test do
     ],
     template_style: :glue
   )
-  puts 'Photo test output to glue_test.png.'
+  puts 'Photo test with glue template style output to glue_test.png.'
 end

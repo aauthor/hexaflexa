@@ -95,6 +95,22 @@ describe Hexflex do
 
       it_behaves_like 'a properly prepared template vector'
     end
+
+    context 'glue output template' do
+      subject do
+        described_class.make_template_vector(
+          side_fills: [
+            'spec/fixtures/photos/1.jpg',
+            'spec/fixtures/photos/2.jpg',
+            'spec/fixtures/photos/3.jpg'
+          ],
+          template_style: :glue
+        )
+      end
+      let(:expected_image_path) { 'spec/fixtures/glue_out.png' }
+
+      it_behaves_like 'a properly prepared template vector'
+    end
   end
 
 end
