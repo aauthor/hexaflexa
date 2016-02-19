@@ -1,30 +1,25 @@
 #!/usr/bin/env ruby
 
-require "bundler/setup"
-require "hexflex"
+require 'bundler/setup'
+require 'hexflex'
+require 'optparse'
 
-def help_requested?
-  return true if ARGV[0].nil?
-  first_flag = ARGV[0].downcase
-  first_flag == '-h' || first_flag == '--help'
-end
+options = {}
+OptionParser.new do |opts|
+  opts.banner = 'Usage: hexflex -s SIDE -s SIDE -s SIDE [-t TEMPLATE] [-o OUTPUT]'
 
-if help_requested?
-  read_me = File.read File.expand_path('../../README.md', __FILE__)
+  opts.on('-s', '--side SIDE', 'A standard X color or path to image for a side of the hexaflexagon. The defaults are cyan, magenta, and yellow.') do |side|
+    options[:side_fills] ||= []
+    options[:side_fills] << side
+  end
 
-  puts 
-  puts 'READMD.md'
-  puts 
-  puts read_me
-  puts
+  opts.on('-t', '--template TEMPLATE', 'template the form for the hexaflexagon. It can either be "tape" or "glue". The default is "tape".') do |template|
+    options[:template_style] = template
+  end
 
-  exit 0
-end
+  opts.on('-o', '--output OUTPUT', 'A path to save the hexaflexagon template image. The default is "out.png".' ) do |file_name|
+    options[:output_file_name] = file_name
+  end
+end.parse!
 
-side_fills = ARGV[0..2]
-output_file_name = ARGV[3]
-
-Hexflex.make_template_image(
-  side_fills: side_fills,
-  output_file_name: output_file_name
-)
+Hexflex.create_template_image!(options)

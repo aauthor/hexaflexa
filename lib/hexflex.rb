@@ -24,7 +24,7 @@ module Hexflex
     end
 
     def make_template(hexaflexagon, template_style)
-      case template_style
+      case template_style.to_sym
       when :glue
         GlueTemplate.new(hexaflexagon)
       when :tape
