@@ -1,6 +1,7 @@
-# Hexflex
-[![Build Status](https://travis-ci.org/aauthor/hexflex.svg?branch=master)](https://travis-ci.org/aauthor/hexflex)
+## No longer actively developed
+I [rewrote this in Javascript](https://github.com/motevets/hexaflexago). Any new feature work will happen there.
 
+# Hexflex
 Hexflex is a Ruby gem and command-line tool for automatically generating
 [hexaflexagon] templates.
 
